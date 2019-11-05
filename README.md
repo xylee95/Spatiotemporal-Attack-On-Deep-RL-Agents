@@ -17,7 +17,9 @@ Implementation of LAS attacks on PPO agent trained in Bipedal Walker Environment
 
 Implementation of LAS attacks on DDQN agent trained in Bipedal Walker Environment
 
-More detailed information can be found at: link to arxiv.
+More detailed information can be found at https://arxiv.org/abs/1909.02583
+
+If you find this work useful, please cite it as:
 
 
 # h1 Heading 8-)
