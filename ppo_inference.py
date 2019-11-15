@@ -3,14 +3,12 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import absolute_import
 from chainerrl import policies
-from chainerrl.optimizers.nonbias_weight_decay import NonbiasWeightDecay
 from chainerrl import misc
 from chainerrl import links
 from chainerrl import experiments
 from chainerrl.agents import PPO
 from chainerrl.agents import a3c
 import chainerrl
-import matplotlib
 import os
 import norms
 import ppo_adversary
@@ -19,8 +17,6 @@ from builtins import *  # NOQA
 from future import standard_library
 standard_library.install_aliases()  # NOQA
 import argparse
-import json
-import matplotlib.pyplot as plt
 import chainer
 from chainer import functions as F
 from chainer import links as L
@@ -79,7 +75,7 @@ def main():
     parser.add_argument('--epsilon', type=float, default=0.1)
     parser.add_argument('--lr', type=float, default=3)
     parser.add_argument('--save_experiments', type=bool, default=False)
-    parser.add_argument('--horizon', type=int, default=25)
+    parser.add_argument('--horizon', type=int, default=10)
     parser.add_argument('--budget', type=float, default=1)
     parser.add_argument('--s', type=str, default='l2')
     parser.add_argument('--t', type=str, default='l2')
@@ -159,58 +155,59 @@ def main():
 
     #For Mujoco Envs
     #################################################################
-    winit = chainerrl.initializers.Orthogonal(1.)
-    winit_last = chainerrl.initializers.Orthogonal(1e-2)
-    action_size = action_space.low.size
-    
-    if args.env_id == 'Hopper' or args.env_id == 'Ant':
-        policy = chainer.Sequential(
-            L.Linear(None, 64, initialW=winit),
-            F.tanh,
-            L.Linear(None, 64, initialW=winit),
-            F.tanh,
-            L.Linear(None, action_size, initialW=winit_last),
-            chainerrl.policies.GaussianHeadWithStateIndependentCovariance(
-                action_size=action_size,
-                var_type='diagonal',
-                var_func=lambda x: F.exp(2 * x),  # Parameterize log std
-                var_param_init=0,  # log std = 0 => std = 1
-            ),
-        )   
-        vf = chainer.Sequential(
-            L.Linear(None, 64, initialW=winit),
-            F.tanh,
-            L.Linear(None, 64, initialW=winit),
-            F.tanh,
-            L.Linear(None, 1, initialW=winit),
-        )
+    if  args.env_id == 'Hopper' or args.env_id == 'Walker' or args.env_id == 'HalfCheetah':
+        winit = chainerrl.initializers.Orthogonal(1.)
+        winit_last = chainerrl.initializers.Orthogonal(1e-2)
+        action_size = action_space.low.size
+        
+        if args.env_id == 'Hopper':
+            policy = chainer.Sequential(
+                L.Linear(None, 64, initialW=winit),
+                F.tanh,
+                L.Linear(None, 64, initialW=winit),
+                F.tanh,
+                L.Linear(None, action_size, initialW=winit_last),
+                chainerrl.policies.GaussianHeadWithStateIndependentCovariance(
+                    action_size=action_size,
+                    var_type='diagonal',
+                    var_func=lambda x: F.exp(2 * x),  # Parameterize log std
+                    var_param_init=0,  # log std = 0 => std = 1
+                ),
+            )   
+            vf = chainer.Sequential(
+                L.Linear(None, 64, initialW=winit),
+                F.tanh,
+                L.Linear(None, 64, initialW=winit),
+                F.tanh,
+                L.Linear(None, 1, initialW=winit),
+            )
 
 
-    elif args.env_id == 'Walker' or args.env_id == 'HalfCheetah':
-        policy = chainer.Sequential(
-            L.Linear(None, 64, initialW=winit),
-            F.tanh,
-            L.Linear(None, 64, initialW=winit),
-            F.tanh,
-            L.Linear(None, action_size, initialW=winit_last),
-            chainerrl.policies.GaussianHeadWithStateIndependentCovariance(
-                action_size=action_size,
-                var_type='diagonal',
-                var_func=lambda x: F.exp(2 * x),  # Parameterize log std
-                var_param_init=0,  # log std = 0 => std = 1
-            ),
-        )
+        elif args.env_id == 'Walker' or args.env_id == 'HalfCheetah':
+            policy = chainer.Sequential(
+                L.Linear(None, 64, initialW=winit),
+                F.tanh,
+                L.Linear(None, 64, initialW=winit),
+                F.tanh,
+                L.Linear(None, action_size, initialW=winit_last),
+                chainerrl.policies.GaussianHeadWithStateIndependentCovariance(
+                    action_size=action_size,
+                    var_type='diagonal',
+                    var_func=lambda x: F.exp(2 * x),  # Parameterize log std
+                    var_param_init=0,  # log std = 0 => std = 1
+                ),
+            )
 
-        vf = chainer.Sequential(
-            L.Linear(None, 128, initialW=winit),
-            F.tanh,
-            L.Linear(None, 64, initialW=winit),
-            F.tanh,
-            L.Linear(None, 1, initialW=winit),
-        )
+            vf = chainer.Sequential(
+                L.Linear(None, 128, initialW=winit),
+                F.tanh,
+                L.Linear(None, 64, initialW=winit),
+                F.tanh,
+                L.Linear(None, 1, initialW=winit),
+            )
 
+        model = chainerrl.links.Branched(policy, vf)
 
-    model = chainerrl.links.Branched(policy, vf)
     opt = chainer.optimizers.Adam(alpha=3e-4, eps=1e-5)
     opt.setup(model)
 
