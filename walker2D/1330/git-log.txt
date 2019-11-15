@@ -1,0 +1,11 @@
+commit 15da0e43b644bfb5148764b7096a70eb7d27a82d
+Author: xylee95 <xylee@iastate.edu>
+Date:   Fri Oct 25 08:57:19 2019 -0500
+
+    adding code to visualize and render trained RL agent
+
+commit 41ac7d7d3d973dfb6fd73b4b2e72b6dd9cf896e0
+Author: xylee95 <xylee@iastate.edu>
+Date:   Wed Oct 23 14:29:20 2019 -0500
+
+    initiaL PPO TRAINING code

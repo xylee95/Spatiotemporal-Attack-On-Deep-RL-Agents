@@ -1,0 +1,153 @@
+diff --git a/train_ppo.py b/train_ppo.py
+index 059bdf2..c4c2ab0 100644
+--- a/train_ppo.py
++++ b/train_ppo.py
+@@ -121,8 +121,31 @@ def main():
+     winit_last = chainerrl.initializers.Orthogonal(1e-2)
+ 
+     action_size = action_space.low.size
++    #default works for Hopper
++    # policy = chainer.Sequential(
++    #     L.Linear(None, 64, initialW=winit), 
++    #     F.tanh,
++    #     L.Linear(None, 64, initialW=winit),
++    #     F.tanh,
++    #     L.Linear(None, action_size, initialW=winit_last),
++    #     chainerrl.policies.GaussianHeadWithStateIndependentCovariance(
++    #         action_size=action_size,
++    #         var_type='diagonal',
++    #         var_func=lambda x: F.exp(2 * x),  # Parameterize log std
++    #         var_param_init=0,  # log std = 0 => std = 1
++    #     ),
++    # )
++
++    # vf = chainer.Sequential(
++    #     L.Linear(None, 64, initialW=winit),
++    #     F.tanh,
++    #     L.Linear(None, 64, initialW=winit),
++    #     F.tanh,
++    #     L.Linear(None, 1, initialW=winit),
++    # )
++
+     policy = chainer.Sequential(
+-        L.Linear(None, 64, initialW=winit),
++        L.Linear(None, 64, initialW=winit), 
+         F.tanh,
+         L.Linear(None, 64, initialW=winit),
+         F.tanh,
+@@ -136,7 +159,7 @@ def main():
+     )
+ 
+     vf = chainer.Sequential(
+-        L.Linear(None, 64, initialW=winit),
++        L.Linear(None, 128, initialW=winit),
+         F.tanh,
+         L.Linear(None, 64, initialW=winit),
+         F.tanh,
+@@ -158,7 +181,7 @@ def main():
+         minibatch_size=args.batch_size,
+         epochs=args.epochs,
+         clip_eps_vf=None,
+-        entropy_coef=0,
++        entropy_coef=0, #0
+         standardize_advantages=True,
+         gamma=0.995,
+         lambd=0.97,
+diff --git a/visualize.py b/visualize.py
+index d6d6b68..c46f74a 100644
+--- a/visualize.py
++++ b/visualize.py
+@@ -25,7 +25,6 @@ from chainerrl import misc
+ 
+ import pdb
+ 
+-
+ def main():
+     import logging
+ 
+@@ -135,27 +134,30 @@ def main():
+     winit_last = chainerrl.initializers.Orthogonal(1e-2)
+ 
+     action_size = action_space.low.size
+-    policy = chainer.Sequential(
+-        L.Linear(None, 64, initialW=winit),
+-        F.tanh,
+-        L.Linear(None, 64, initialW=winit),
+-        F.tanh,
+-        L.Linear(None, action_size, initialW=winit_last),
+-        chainerrl.policies.GaussianHeadWithStateIndependentCovariance(
+-            action_size=action_size,
+-            var_type='diagonal',
+-            var_func=lambda x: F.exp(2 * x),  # Parameterize log std
+-            var_param_init=0,  # log std = 0 => std = 1
+-        ),
+-    )
+ 
+-    vf = chainer.Sequential(
+-        L.Linear(None, 64, initialW=winit),
+-        F.tanh,
+-        L.Linear(None, 64, initialW=winit),
+-        F.tanh,
+-        L.Linear(None, 1, initialW=winit),
+-    )
++    if args.env == 'Hopper-v2':
++        #default policy
++        policy = chainer.Sequential(
++            L.Linear(None, 64, initialW=winit),
++            F.tanh,
++            L.Linear(None, 64, initialW=winit),
++            F.tanh,
++            L.Linear(None, action_size, initialW=winit_last),
++            chainerrl.policies.GaussianHeadWithStateIndependentCovariance(
++                action_size=action_size,
++                var_type='diagonal',
++                var_func=lambda x: F.exp(2 * x),  # Parameterize log std
++                var_param_init=0,  # log std = 0 => std = 1
++            ),
++        )
++
++        vf = chainer.Sequential(
++            L.Linear(None, 64, initialW=winit),
++            F.tanh,
++            L.Linear(None, 64, initialW=winit),
++            F.tanh,
++            L.Linear(None, 1, initialW=winit),
++        )
+ 
+     # Combine a policy and a value function into a single model
+     model = chainerrl.links.Branched(policy, vf)
+@@ -178,17 +180,28 @@ def main():
+         lambd=0.97,
+     )
+ 
+-    # if args.load:
+-    #     agent.load(args.load)
+-
+-    print('here')
+-    for i in range(100):
++    scores =  {
++      "Hopper": 3177 ,
++      "Walker": 0,
++      "Cheetah": 0
++    }
++
++    # loading best available bank of agents
++    if args.env == 'Hopper-v2':
++        print('Loading best Hopper agent with mean score of {}'.format(scores['Hopper']))
++        agent.load('/home/microway/Desktop/bernard/rlsuite/hopper/3177/2000000_finish')
++
++    elif args.env == 'Walker-v2':
++        print('Loading best Hopper agent with mean score of {}'.format(scores['Hopper']))
++        agent.load('/home/microway/Desktop/bernard/rlsuite/hopper/3177/2000000_finish')
++ 
++    for i in range(10):
+         obs = env.reset()
+         done = False
+         R = 0
+         t = 0
+         while not done and t < 100000:
+-            env.render()
++            #env.render()
+             action = agent.act(obs)
+             obs, r, done, _ = env.step(action)
+             R += r

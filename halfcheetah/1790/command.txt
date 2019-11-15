@@ -1,0 +1,1 @@
+train_ppo.py --gpu 0 --env HalfCheetah-v2 --steps 3000000 --outdir halfcheetah

@@ -1,0 +1,1 @@
+{"gpu": 0, "env": "Walker2d-v2", "num_envs": 1, "seed": 0, "outdir": "walker2D", "steps": 2000000, "eval_interval": 100000, "eval_n_runs": 100, "render": false, "demo": false, "load": "", "logger_level": 20, "monitor": false, "log_interval": 1000, "update_interval": 2048, "epochs": 10, "batch_size": 64}
