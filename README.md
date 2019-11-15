@@ -4,6 +4,8 @@
 ## Box2D environments
 Trained PPO agent in Lunar Lander Environment
 
+![PPO Agent in Lunar Lander Environment](/images/PPO_LL_nom.gif "PPO agent in Lunar Lander Environment")
+
 Trained DDQN agent in Lunar Lander Environment
 
 Implementation of LAS attacks on trained PPO agent in Lunar Lander Environment
