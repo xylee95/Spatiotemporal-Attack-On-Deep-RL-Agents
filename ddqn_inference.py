@@ -140,11 +140,6 @@ def main():
         args, args.outdir, argv=sys.argv)
     print('Output files are saved in {}'.format(args.outdir))
 
-    if args.env_id == 'MC':
-        env_name = 'MountainCarContinuous-v0'
-        load = 'DDQNMountainCarContinuous-v0_Run1'
-        n_hidden_channels = 256
-        n_hidden_layers = 3
     elif args.env_id == 'LL':
         env_name = 'LunarLanderContinuous-v2'
         load = 'DDQNLunarLanderContinuous-v2_Run2'
