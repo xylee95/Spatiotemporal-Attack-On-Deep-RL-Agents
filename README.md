@@ -8,7 +8,8 @@ Trained PPO agent in Lunar Lander Environment
 
 Trained DDQN agent in Lunar Lander Environment
 
-Implementation of LAS attacks on trained PPO agent in Lunar Lander Environment
+Implementation of LAS attacks on PPO agent in Lunar Lander Environment
+![LAS attack on PPO](/images/PPO_LL_LAS_b4h5.gif "LAS attack on PPO")
 
 Implementation of LAS attacks on DDQN agent trained in Lunar Lander Environment
 
