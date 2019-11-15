@@ -1,6 +1,7 @@
 # Spatiotemporal-Attack-On-Deep-RL-Agents
 
 ---
+## Box2D environments
 Trained PPO agent in Lunar Lander Environment
 
 Trained DDQN agent in Lunar Lander Environment
@@ -17,19 +18,53 @@ Implementation of LAS attacks on PPO agent trained in Bipedal Walker Environment
 
 Implementation of LAS attacks on DDQN agent trained in Bipedal Walker Environment
 
+## MUJOCO Environments
+Trained PPO agent in Walker-2D
+
+Trained PPO agent in Half-Cheetah
+
+Trained PPO agent in Hopper
+
+PPO agent under LAS attack in Walker-2D
+
+PPO agent under LAS attack in Half-Cheetah
+
+PPO agent under LAS attack in Hopper
+
 More detailed information can be found at https://arxiv.org/abs/1909.02583
 
 If you find this work useful, please cite it as:
 
 
+
+## Implementation
+### Pre-requisites 
+This repository uses ChainerRL to craft the action space attacks on RL agents. 
+
+### Code Structure
+1. (agent)_adversary.py contains class of agents that have been augmented to explicitly return Q-values, value functions and action probability distributions.
+2. norms.py contains implementations of different norms and projections.
+3. (agent)_inference.py contains implementations of attack algorithms on RL agent during inference.
+
+
+
+### Running the code
+1. To run inference using trained RL agent:
+    * Run any one of the (agent)_inference.py with environment arguments **--env LL** for LunarLander, **--env BW** for BipedalWalker  
+    * **--rollout Nominal** runs nominal agent for visualization
+    * **--rollout MAS** runs a nominal agent and attacks the agent's action space at every step,**--start_atk** can be used to define when attack begin.
+    * **--rollout LAS** runs a nominal agent and attacks the agent's action space using attacks that are optimized and projected back to the spatial and temporal budget constraints.
+
+
+For a list of required packages, please refer to requirements.txt. 
+
+###
 # h1 Heading 8-)
 ## h2 Heading
 ### h3 Heading
 #### h4 Heading
 ##### h5 Heading
 ###### h6 Heading
-
-
 ## Horizontal Rules
 
 ___
