@@ -10,26 +10,32 @@ The second attack strategy proposed was the Look-ahead Action Space Attack (LAS)
 ## Results
 
 As hypothesized, given the same budget, LAS proves to be a much stronger attack than MAS, which is in turn stronger than a random perturbation.
+![Distribution of rewards for PPO in Lunar Lander agent under different attacks](/images/PPO_LL_boxplot.png "Distribution of rewards for PPO in Lunar Lander agent under different attacks")
 
 ## Box2D environments
 Trained PPO agent in Lunar Lander Environment
-
 ![PPO Agent in Lunar Lander Environment](/images/PPO_LL_nom.gif "PPO agent in Lunar Lander Environment")
 
 Trained DDQN agent in Lunar Lander Environment
+![DDQN Agent in Lunar Lander Environment](/images/DDQN_LL_nom.gif "DDQN agent in Lunar Lander Environment")
 
 Implementation of LAS attacks on PPO agent in Lunar Lander Environment
 ![LAS attack on PPO](/images/PPO_LL_LAS_b4h5.gif "LAS attack on PPO")
 
 Implementation of LAS attacks on DDQN agent trained in Lunar Lander Environment
+![LAS attack on DDQN](/images/DDQN_LL_LAS_b5h5.gif "LAS attack on DDQN")
 
 Trained PPO agent in Bipedal Walker Environment
+![PPO Agent in Bipedal Walker Environment](/images/PPO_BW_nom.gif "PPO agent in Lunar Lander Environment")
 
 Trained DDQN agent in Bipedal Walker Environment
+![DDQN Agent in Bipedal Walker Environment](/images/DDQN_BW_nom.gif "PPO agent in Lunar Lander Environment")
 
 Implementation of LAS attacks on PPO agent trained in Bipedal Walker Environment
+![LAS attack on PPO Agent in Bipedal Walker Environment](/images/PPO_BW_LAS_b5h5.gif "PPO agent in Lunar Lander Environment")
 
 Implementation of LAS attacks on DDQN agent trained in Bipedal Walker Environment
+![LAS attack on DDQN Agent in Bipedal-Walker Environment](/images/DDQN_PPO_LAS_b5h5.gif "PPO agent in Lunar Lander Environment")
 
 ## MUJOCO Environments
 Trained PPO agent in Walker-2D
