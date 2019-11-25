@@ -1,5 +1,5 @@
 # Spatiotemporal-Attack-On-Deep-RL-Agents
----
+
 ## Brief overview
 This post demonstrates some of the action space attack strategies on Deep RL agents presented in the the paper Spatiotemporally Constrained Action Space Attack on Deep RL Agents. 
 
@@ -9,7 +9,7 @@ The second attack strategy proposed was the Look-ahead Action Space Attack (LAS)
 
 ## Results
 
-As hypothesized, given the same budget, LAS proves to be a much stronger attack than MAS, which is in turn stronger than a random perturbation.
+As hypothesized, given the same budget, LAS proves to be a much stronger attack than MAS, which is in turn stronger than a random perturbation. Results are shown for rewards obtained by the RL agent across 10 different episodes.
 ![Distribution of rewards for PPO in Lunar Lander agent under different attacks](/images/PPO_LL_boxplot.png "Distribution of rewards for PPO in Lunar Lander agent under different attacks")
 
 ## Box2D environments
@@ -52,8 +52,7 @@ PPO agent under LAS attack in Hopper
 
 More detailed information and supplemental materials are available at https://arxiv.org/abs/1909.02583
 
-
-
+---
 ## Implementation
 ### Pre-requisites 
 This repository crafts the action space attacks on RL agents. The nominal agents were trained using ChainerRL library. Strictly speaking, the attacks does not require any specific libraries but the code in this repository utilizes Chainer variables and Cupy to accelerate the attacks. 
