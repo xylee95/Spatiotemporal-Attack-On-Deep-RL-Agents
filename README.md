@@ -38,23 +38,23 @@ Implementation of LAS attacks on DDQN agent trained in Bipedal Walker Environmen
 ![LAS attack on DDQN Agent in Bipedal-Walker Environment](/images/DDQN_PPO_LAS_b5h5.gif "PPO agent in Lunar Lander Environment")
 
 ## MUJOCO Environments
-Trained PPO agent in Walker-2D
+Trained PPO agent in Walker-2D   
 ![PPO Agent in Walker-2D](/images/walker_nom.gif "PPO Agent in Walker-2D")
 
-PPO agent under LAS attack in Walker-2D
-![LAS attack on PPO Agent in Walker-2D](/images/walker_fast.gif "LAS attack on PPO Agent in Walker-2D")
+PPO agent under LAS attack in Walker-2D   
+![LAS attack on PPO Agent in Walker-2D](/images/walker_fast.gif "LAS attack on PPO Agent in Walker-2D. Right animation illustrates virtual rollout of adversarial agent to craft an attack based on the agent's future dynamics")
 
-Trained PPO agent in Half-Cheetah
+Trained PPO agent in Half-Cheetah      
 ![PPO Agent in Half-Cheetah](/images/cheetah_nom.gif "PPO Agent in Half-Cheetah")
 
-PPO agent under LAS attack in Half-Cheetah
-![LAS attack on PPO Agent in Half-Cheetah](/images/cheetah_fast.gif "LAS attack on PPO Agent in Half-Cheetah")
+PPO agent under LAS attack in Half-Cheetah   
+![LAS attack on PPO Agent in Half-Cheetah](/images/cheetah_fast.gif "LAS attack on PPO Agent in Half-Cheetah. Right animation illustrates virtual rollout of adversarial agent to craft an attack based on the agent's future dynamics")
 
-Trained PPO agent in Hopper
+Trained PPO agent in Hopper  
 ![PPO Agent in Hopper](/images/hopper_nom.gif "PPO Agent in Hopper")
 
 PPO agent under LAS attack in Hopper
-![LAS attack on PPO Agent in Hopper](/images/hopper_fast.gif "LAS attack on PPO Agent in Hopper")
+![LAS attack on PPO Agent in Hopper](/images/hopper_fast.gif "LAS attack on PPO Agent in Hopper. Right animation illustrates virtual rollout of adversarial agent to craft an attack based on the agent's future dynamics")
 
 More detailed information and supplemental materials are available at https://arxiv.org/abs/1909.02583
 
