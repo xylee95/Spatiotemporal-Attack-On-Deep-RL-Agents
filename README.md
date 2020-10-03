@@ -1,7 +1,7 @@
 # Spatiotemporal-Attack-On-Deep-RL-Agents
 
 ## Brief overview
-This post demonstrates some of the action space attack strategies on Deep RL agents presented in the the paper Spatiotemporally Constrained Action Space Attack on Deep RL Agents. 
+This post demonstrates some of the action space attack strategies on Deep RL agents presented in the the paper [Spatiotemporally Constrained Action Space Attack on Deep RL Agents](https://aaai.org/ojs/index.php/AAAI/article/view/5887). 
 
 The first attack strategy developed was the Myopic Action Space Attack (MAS). In MAS, we formulated the attack model as an optimization problem with decoupled constraints. The objective of the optmization is to craft a perturbation at every step that minimizes the Deep RL agent's immediate reward, subject to the constraint that the perturbation cannot exceed a certain budget. The constraints are decoupled since each constraint is only imposed upon the the immediate perturbation and are independent of the agent's trajectory. Hence, this can be thought of a myopic attack since we only aim to reduce immediate reward without taking into account future rewards. Given a small budget, these attacks might not have any apparent effect on the Deep RL agent as the agent might be able to recover in future steps.
 
